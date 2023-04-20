@@ -23,5 +23,5 @@ dependencyResolutionManagement {
         maven { url "https://maven.aliyun.com/repository/jcenter" }
     }
 }
-rootProject.name = "dora-arouter-support"
+rootProject.name = "dcache-room-support"
 include ':lib'
