@@ -20,7 +20,7 @@ class RoomListCacheHolder<M>(var db: RoomDatabase, var daoName: String,
         dao = db.javaClass.getDeclaredMethod(daoName).invoke(db) as IListRoomDao<M>
     }
 
-    override fun queryCache(condition: Condition): MutableList<M>? {
+    override fun queryCache(condition: Condition): MutableList<M> {
         return runBlocking {
             withContext(Dispatchers.IO) {
                 val query = SupportSQLiteQueryBuilder.builder(clazz.simpleName)

@@ -29,7 +29,7 @@ android {
 dependencies {
     implementation("androidx.appcompat:appcompat:1.6.1")
 
-    implementation("com.github.dora4:dcache-android:1.7.6")
+    implementation("com.github.dora4:dcache-android:1.8.5")
     val kotlin_coroutine_version = "1.6.1"
     api("org.jetbrains.kotlinx:kotlinx-coroutines-core:$kotlin_coroutine_version")
     api("org.jetbrains.kotlinx:kotlinx-coroutines-android:$kotlin_coroutine_version")
@@ -47,7 +47,7 @@ afterEvaluate {
                 from(components["release"])
                 groupId = "com.github.dora4"
                 artifactId = "dcache-room-support"
-                version = "1.2"
+                version = "1.4"
             }
         }
     }
