@@ -11,7 +11,6 @@ android {
 
     defaultConfig {
         minSdk = 21
-        targetSdk = 34
     }
 
     buildTypes {
@@ -21,15 +20,15 @@ android {
         }
     }
     compileOptions {
-        sourceCompatibility = JavaVersion.VERSION_21
-        targetCompatibility = JavaVersion.VERSION_21
+        sourceCompatibility = JavaVersion.VERSION_17
+        targetCompatibility = JavaVersion.VERSION_17
     }
 }
 
 dependencies {
     implementation("androidx.appcompat:appcompat:1.7.0")
+    implementation("com.github.dora4:dcache-android:3.1.3")
 
-    implementation("com.github.dora4:dcache-android:3.1.2")
     val kotlin_coroutine_version = "1.8.1"
     api("org.jetbrains.kotlinx:kotlinx-coroutines-core:$kotlin_coroutine_version")
     api("org.jetbrains.kotlinx:kotlinx-coroutines-android:$kotlin_coroutine_version")
@@ -40,6 +39,10 @@ dependencies {
     kapt("androidx.room:room-compiler:$room_version")
 }
 
+kapt {
+    useBuildCache = false
+}
+
 afterEvaluate {
     publishing {
         publications {
@@ -47,7 +50,7 @@ afterEvaluate {
                 from(components["release"])
                 groupId = "com.github.dora4"
                 artifactId = "dcache-room-support"
-                version = "1.5"
+                version = "1.6"
             }
         }
     }

@@ -3,11 +3,13 @@ pluginManagement {
         gradlePluginPortal()
         google()
         mavenCentral()
-        maven { url "https://maven.aliyun.com/repository/jcenter" }
     }
 
     resolutionStrategy {
         eachPlugin {
+            if (requested.id.namespace == "com.android.tools.build") {
+                useModule("com.android.tools.build:gradle:8.1.0")
+            }
             if (requested.id.namespace == "com.github.dcendents") {
                 useModule("com.github.dcendents:android-maven-gradle-plugin:1.5")
             }
@@ -24,7 +26,6 @@ dependencyResolutionManagement {
         google()
         mavenCentral()
         maven { url "https://jitpack.io" }
-        maven { url "https://maven.aliyun.com/repository/jcenter" }
     }
 }
 rootProject.name = "dcache-room-support"
