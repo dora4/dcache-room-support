@@ -7,11 +7,11 @@ plugins {
 
 android {
     namespace = "dora.cache.room"
-    compileSdk = 32
+    compileSdk = 34
 
     defaultConfig {
         minSdk = 21
-        targetSdk = 32
+        targetSdk = 34
     }
 
     buildTypes {
@@ -21,16 +21,16 @@ android {
         }
     }
     compileOptions {
-        sourceCompatibility = JavaVersion.VERSION_1_8
-        targetCompatibility = JavaVersion.VERSION_1_8
+        sourceCompatibility = JavaVersion.VERSION_21
+        targetCompatibility = JavaVersion.VERSION_21
     }
 }
 
 dependencies {
-    implementation("androidx.appcompat:appcompat:1.6.1")
+    implementation("androidx.appcompat:appcompat:1.7.0")
 
-    implementation("com.github.dora4:dcache-android:1.8.5")
-    val kotlin_coroutine_version = "1.6.1"
+    implementation("com.github.dora4:dcache-android:3.1.2")
+    val kotlin_coroutine_version = "1.8.1"
     api("org.jetbrains.kotlinx:kotlinx-coroutines-core:$kotlin_coroutine_version")
     api("org.jetbrains.kotlinx:kotlinx-coroutines-android:$kotlin_coroutine_version")
     val room_version = "2.2.0-rc01"
@@ -47,7 +47,7 @@ afterEvaluate {
                 from(components["release"])
                 groupId = "com.github.dora4"
                 artifactId = "dcache-room-support"
-                version = "1.4"
+                version = "1.5"
             }
         }
     }

@@ -2,18 +2,10 @@ package dora.cache.repository
 
 import android.content.Context
 import androidx.room.RoomDatabase
-import dora.cache.holder.*
+import dora.cache.RoomCacheHolderFactory
 
-abstract class RoomDatabaseCacheRepository<T, D : RoomDatabase>(context: Context)
-    : BaseDatabaseCacheRepository<T>(context) {
-
-    override fun createCacheHolder(clazz: Class<T>): CacheHolder<T> {
-        return RoomCacheHolder<T>(getRoomDatabase(), getDaoName(), clazz)
-    }
-
-    override fun createListCacheHolder(clazz: Class<T>): CacheHolder<MutableList<T>> {
-        return RoomListCacheHolder<T>(getRoomDatabase(), getDaoName(), clazz)
-    }
+abstract class RoomDatabaseCacheRepository<T : Any, D : RoomDatabase>(context: Context)
+    : BaseSuspendDatabaseCacheRepository<T, RoomCacheHolderFactory<T, D>>(context) {
 
     abstract fun getRoomDatabase() : D
 
