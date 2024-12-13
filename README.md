@@ -15,6 +15,6 @@ allprojects {
 dependencies {
     // 扩展包需要在有主框架的情况下使用
     implementation 'com.github.dora4:dcache-android:3.1.4'
-    implementation 'com.github.dora4:dcache-room-support:1.6'
+    implementation 'com.github.dora4:dcache-room-support:1.7'
 }
 ```
