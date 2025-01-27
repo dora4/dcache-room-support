@@ -28,14 +28,16 @@ class RoomListDatabaseCacheHolder<M>(
                 .orderBy(condition.orderBy)
                 .limit(condition.limit)
                 .having(condition.having).create()
+            OrmLog.d("SQL: ${query.sql}")
+            OrmLog.d("Args: ${condition.selectionArgs.joinToString(",")}")
             dao.select(query)
         }
     }
 
     override suspend fun removeOldCache(condition: Condition) {
         withContext(Dispatchers.IO) {
-            val model = queryCache(condition)
-            model.let {
+            val models = queryCache(condition)
+            models.let {
                 val ok = dao.delete(it) > 0
                 OrmLog.d("removeOldCache:$ok")
             }

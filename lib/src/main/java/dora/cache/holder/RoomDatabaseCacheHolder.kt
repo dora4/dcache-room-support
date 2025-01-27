@@ -28,6 +28,8 @@ class RoomDatabaseCacheHolder<M>(
                 .orderBy(condition.orderBy)
                 .limit(condition.limit)
                 .having(condition.having).create()
+            OrmLog.d("SQL: ${query.sql}")
+            OrmLog.d("Args: ${condition.selectionArgs.joinToString(",")}")
             dao.select(query)
         }
     }
