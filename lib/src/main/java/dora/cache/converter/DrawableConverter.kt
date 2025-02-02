@@ -1,6 +1,6 @@
 package dora.cache.converter
 
-import android.content.Context
+import android.content.res.Resources
 import android.graphics.Bitmap
 import android.graphics.BitmapFactory
 import android.graphics.Canvas
@@ -9,14 +9,7 @@ import android.graphics.drawable.Drawable
 import androidx.room.TypeConverter
 import java.io.ByteArrayOutputStream
 
-class DrawableConverter {
-
-    private var context: Context? = null
-
-    fun initialize(context: Context): DrawableConverter {
-        this.context = context
-        return this
-    }
+object DrawableConverter {
 
     @TypeConverter
     fun fromDrawable(drawable: Drawable?): ByteArray? {
@@ -36,8 +29,8 @@ class DrawableConverter {
 
     @TypeConverter
     fun toDrawable(byteArray: ByteArray?): Drawable? {
-        if (byteArray == null || context == null) return null
+        if (byteArray == null) return null
         val bitmap = BitmapFactory.decodeByteArray(byteArray, 0, byteArray.size)
-        return BitmapDrawable(context!!.resources, bitmap)
+        return BitmapDrawable(Resources.getSystem(), bitmap)
     }
 }
