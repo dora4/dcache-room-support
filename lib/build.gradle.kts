@@ -27,7 +27,7 @@ android {
 
 dependencies {
     implementation("androidx.appcompat:appcompat:1.7.0")
-    implementation("com.github.dora4:dcache-android:3.2.5")
+    implementation("com.github.dora4:dcache-android:3.2.7")
 
     val kotlin_coroutine_version = "1.8.1"
     api("org.jetbrains.kotlinx:kotlinx-coroutines-core:$kotlin_coroutine_version")

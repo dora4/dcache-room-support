@@ -11,7 +11,8 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
 
 class RoomDatabaseCacheHolder<M>(
-    private var db: RoomDatabase, private var daoName: String,
+    private var db: RoomDatabase,
+    private var daoName: String,
     private var clazz: Class<M>) : SuspendDatabaseCacheHolder<M> {
 
     private lateinit var dao: IRoomDao<M>
@@ -53,8 +54,14 @@ class RoomDatabaseCacheHolder<M>(
 
     @SuppressLint("RestrictedApi")
     override suspend fun queryCacheSize(condition: Condition): Long {
-        val query = RoomSQLiteQuery.acquire("SELECT COUNT(*) FROM " + clazz.simpleName + " WHERE "
-                + condition.selection, condition.selectionArgs.size)
+        val query = if (condition.selection == "") {
+            RoomSQLiteQuery.acquire("SELECT COUNT(*) FROM " + clazz.simpleName, 0)
+
+        } else {
+            RoomSQLiteQuery.acquire("SELECT COUNT(*) FROM " + clazz.simpleName + " WHERE "
+                    + condition.selection, condition.selectionArgs.size)
+
+        }
         val cursor = withContext(Dispatchers.IO) {
             db.query(query)
         }
