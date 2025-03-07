@@ -8,11 +8,11 @@ import androidx.sqlite.db.SupportSQLiteQuery
 interface IRoomDao<T> {
 
     @RawQuery
-    suspend fun select(query: SupportSQLiteQuery) : T
+    fun select(query: SupportSQLiteQuery) : T?
 
     @Insert
-    suspend fun insert(model: T) : Long
+    fun insert(model: T) : Long
 
     @Delete
-    suspend fun delete(model: T) : Int
+    fun delete(model: T) : Int
 }
