@@ -32,7 +32,7 @@ abstract class RoomDatabaseCacheRepository<T : Any, D : RoomDatabase>(context: C
      */
     abstract fun getDaoName() : String
 
-    private fun getRoomDatabase() : D {
+    protected fun getRoomDatabase() : D {
         return Room.databaseBuilder(context, getDatabaseType(), getDatabaseName()).build()
     }
 
