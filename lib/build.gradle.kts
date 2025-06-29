@@ -50,7 +50,7 @@ afterEvaluate {
                 from(components["release"])
                 groupId = "com.github.dora4"
                 artifactId = "dcache-room-support"
-                version = "1.14"
+                version = "1.15"
             }
         }
     }
