@@ -54,7 +54,8 @@ class RoomListDatabaseCacheHolder<M>(
     override suspend fun addNewCache(models: MutableList<M>) {
         withContext(Dispatchers.IO) {
             val results = dao.insert(models)
-            for (result in results) {
+            for (i in 0 until results.size) {
+                val result = results[i]
                 if (result > 0) {
                     continue
                 } else {
