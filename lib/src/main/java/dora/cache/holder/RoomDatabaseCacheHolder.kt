@@ -3,8 +3,7 @@ package dora.cache.holder
 import android.annotation.SuppressLint
 import androidx.room.RoomDatabase
 import androidx.room.RoomSQLiteQuery
-import androidx.sqlite.db.SupportSQLiteQuery
-import androidx.sqlite.db.SupportSQLiteQueryBuilder
+import dora.cache.QueryUtils
 import dora.cache.dao.IRoomDao
 import dora.db.OrmLog
 import dora.db.builder.Condition
@@ -22,19 +21,9 @@ class RoomDatabaseCacheHolder<M>(
         dao = db.javaClass.getDeclaredMethod(daoName).invoke(db) as IRoomDao<M>
     }
 
-    private fun buildRoomQuery(tableName: String, condition: Condition): SupportSQLiteQuery {
-        val query = SupportSQLiteQueryBuilder.builder(tableName)
-            .selection(condition.selection, condition.selectionArgs)
-            .groupBy(condition.groupBy)
-            .orderBy(condition.orderBy)
-            .limit(condition.limit)
-            .having(condition.having).create()
-        return query
-    }
-
     override suspend fun queryCache(condition: Condition): M? {
         return withContext(Dispatchers.IO) {
-            val query = buildRoomQuery(clazz.simpleName, condition)
+            val query = QueryUtils.createSQLiteQuery(clazz.simpleName, condition)
             OrmLog.d("SQL: ${query.sql}")
             OrmLog.d("Args: ${condition.selectionArgs.joinToString(",")}")
             dao.select(query)
