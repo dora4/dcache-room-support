@@ -4,7 +4,7 @@ import android.annotation.SuppressLint
 import androidx.room.Entity
 import androidx.room.RoomDatabase
 import androidx.room.RoomSQLiteQuery
-import dora.cache.QueryUtils
+import dora.cache.RoomUtils
 import dora.cache.dao.IListRoomDao
 import dora.db.OrmLog
 import dora.db.builder.Condition
@@ -33,7 +33,7 @@ class RoomListDatabaseCacheHolder<M>(
     override suspend fun queryCache(condition: Condition): MutableList<M> {
         return withContext(Dispatchers.IO) {
             val tableName = getTableName(clazz)
-            val query = QueryUtils.createSQLiteQuery(tableName, condition)
+            val query = RoomUtils.createSQLiteQuery(tableName, condition)
             OrmLog.d("SQL: ${query.sql}")
             OrmLog.d("Args: ${condition.selectionArgs.joinToString(",")}")
             dao.select(query)

@@ -1,10 +1,30 @@
 package dora.cache
 
+import android.content.Context
+import androidx.room.Room
+import androidx.room.RoomDatabase
 import androidx.sqlite.db.SupportSQLiteQuery
 import androidx.sqlite.db.SupportSQLiteQueryBuilder
 import dora.db.builder.Condition
 
-object QueryUtils {
+object RoomUtils {
+
+    inline fun <reified DB : RoomDatabase> getDB(context: Context, databaseName: String) : DB {
+        return Room.databaseBuilder(
+            context,
+            DB::class.java,
+            databaseName
+        ).build()
+    }
+
+    @JvmStatic
+    fun <DB : RoomDatabase> getDB(context: Context, databaseType: Class<DB>, databaseName: String) : DB {
+        return Room.databaseBuilder(
+            context,
+            databaseType,
+            databaseName
+        ).build()
+    }
 
     private fun cleanClause(clause: String?): String? {
         return clause
