@@ -10,6 +10,7 @@ import dora.db.OrmLog
 import dora.db.builder.Condition
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
+import java.util.concurrent.CopyOnWriteArrayList
 
 class RoomListDatabaseCacheHolder<M>(
     private var db: RoomDatabase,
@@ -52,7 +53,7 @@ class RoomListDatabaseCacheHolder<M>(
 
     override suspend fun addNewCache(models: MutableList<M>) {
         withContext(Dispatchers.IO) {
-            val results = dao.insert(models)
+            val results = dao.insert(CopyOnWriteArrayList(models))
             for (i in 0 until results.size) {
                 val result = results[i]
                 if (result > 0) {
