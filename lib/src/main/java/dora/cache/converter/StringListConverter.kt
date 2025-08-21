@@ -5,14 +5,10 @@ import androidx.room.TypeConverter
 object StringListConverter {
 
     @TypeConverter
-    fun fromList(list: List<String?>?): String? {
-        return if (list == null) null else java.lang.String.join(",", list)
-    }
+    fun fromList(list: List<String?>?): String? =
+        list?.filterNotNull()?.joinToString(",")
 
     @TypeConverter
-    fun toList(data: String?): List<String>? {
-        return if (data == null) null else listOf(
-            *data.split(",".toRegex()).dropLastWhile { it.isEmpty() }.toTypedArray()
-        )
-    }
+    fun toList(data: String?): List<String>? =
+        data?.split(",")?.filter { it.isNotEmpty() }
 }
